@@ -1,0 +1,44 @@
+{% extends 'user/base.html' %}
+{% block body %}
+<form class="form-inline"  action="user/create" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">UserName</label>
+        <input type="text" name="username" class="form-control" style="width:8%;" required="required"/>
+        <label for="firstname">First Name</label>
+        <input type="text" name="firstname" class="form-control" style="width:8%;" required="required"/>
+        <label for="lastname">Last Name</label>
+        <input type="text" name="lastname" class="form-control" style="width:8%;" required="required"/>
+
+        <label for="password">Password</label>
+        <input type="text" name="password" class="form-control" style="width:8%;" required="required"/>
+
+        <label for="lastname">Email address</label>
+        <input type="text" name="email" class="form-control" style="width:8%;" required="required"/>
+        <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+    </div>
+</form>
+<br />
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th>UserName</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td>{{ member.username }}</td>
+            <td>{{ member.first_name }}</td>
+            <td>{{ member.last_name }}</td>
+            <td>{{ member.email }}</td>
+            <td><center><a class="btn btn-sm btn-warning" href="user/edit/{{ member.id }}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a class="btn btn-sm btn-danger" href="user/delete/{{ member.id }}"><span class="glyphicon glyphicon-trash"></span> Delete</a></center></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

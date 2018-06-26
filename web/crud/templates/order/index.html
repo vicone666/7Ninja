@@ -1,0 +1,60 @@
+{% extends 'order/base.html' %}
+{% block body %}
+<form class="form-inline"  action="order/create" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="product">Product</label>
+        <select name="product" class="form-control" style="width:10%;" required="required"> 
+            {% for product in products %}
+                <option value="{{product.id}}">{{product.title}}</option> 
+            {% endfor %}
+        </select>
+
+        <label for="user">User</label>
+        <select name="user" class="form-control" style="width:10%;" required="required"> 
+            {% for user in users %}
+                <option value="{{user.id}}">{{user.email}}</option> 
+            {% endfor %}
+        </select>
+
+        <label for="delivery">Delivery</label>
+        <select name="delivery" class="form-control" style="width:10%;" required="required"> 
+            {% for delivery in deliveries %}
+                <option value="{{delivery.id}}">{{delivery.title}}</option> 
+            {% endfor %}
+        </select>
+
+        <label for="product_count">Product Count</label>
+        <input type="text" name="product_count" class="form-control" style="width:8%;" required="required"/>
+
+
+        <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+    </div>
+</form>
+<br />
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th>Product</th>
+            <th>User</th>
+            <th>Delivery</th>
+            <th>Total Price</th>
+            <th>Product Count</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.product.title }}</td>
+            <td>{{ order.user }}</td>
+            <td>{{ order.delivery }}</td>
+            <td>{{ order.total_price }}</td>
+            <td>{{ order.product_count }}</td>
+
+            <td><center><a class="btn btn-sm btn-warning" href="order/edit/{{ order.id }}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a class="btn btn-sm btn-danger" href="order/delete/{{ order.id }}"><span class="glyphicon glyphicon-trash"></span> Delete</a></center></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

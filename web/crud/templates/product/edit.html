@@ -1,0 +1,46 @@
+{% extends 'product/base.html' %}
+{% block body %}
+    <form method="POST" action="update/{{ products.id }}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" value="{{ products.title }}" required="required"/>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="text" name="image" value="{{ products.image }}" required="required"/>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" value="{{ products.description }}" required="required"/>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" name="price" value="{{ products.price }}" required="required"/>
+        </div>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select name="currency" class="form-control" style="width:10%;" required="required"> 
+                <option value="USD">USD</option> 
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" class="form-control" style="width:10%;" required="required"> 
+                {% for category in categories %}
+                <option value="{{category.id}}">{{category.title}}</option> 
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span> Update</button>
+
+
+        </div>
+    </form>
+{% endblock %}

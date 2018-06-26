@@ -1,0 +1,67 @@
+{% extends 'product/base.html' %}
+{% block body %}
+<form class="form-inline"  action="product/create" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control" style="width:8%;" required="required"/>
+        <label for="image">Image</label>
+        <input type="text" name="image" class="form-control" style="width:8%;" required="required"/>
+        <label for="description">Description</label>
+        <input type="text" name="description" class="form-control" style="width:8%;" required="required"/>
+
+        <label for="price">Price</label>
+        <input type="text" name="price" class="form-control" style="width:8%;" required="required"/>
+
+        <label for="currency">Currency</label>
+      
+
+        <select name="currency" class="form-control" style="width:8%;" required="required"> 
+            <option value="USD">USD</option> 
+        </select>
+
+
+        <label for="category">Category</label>
+
+        <select name="category" class="form-control" style="width:8%;" required="required"> 
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.title}}</option> 
+            {% endfor %}
+        </select>
+
+
+        <!-- <input type="text" name="category" class="form-control" style="width:10%;" required="required"/> -->
+
+        <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+    </div>
+</form>
+<br />
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th>Title</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Currency</th>
+            <th>Category</th>
+            <th>Likes</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.title }}</td>
+            <td>{{ product.image }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.currency }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.likes }}</td>
+            <td><center><a class="btn btn-sm btn-warning" href="product/edit/{{ product.id }}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a class="btn btn-sm btn-danger" href="product/delete/{{ product.id }}"><span class="glyphicon glyphicon-trash"></span> Delete</a></center></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
